@@ -1,0 +1,31 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="flex flex-col gap-6 mb-8">
+  {% if not ai_enabled %}
+  <div class="rounded-default border border-amber-300 bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 px-4 py-3">
+    AI работает в демо-режиме. Добавьте <code>ANTHROPIC_API_KEY</code> в файл <code>.env</code>, чтобы генерировать настоящие планы, тесты и проверку.
+  </div>
+  {% endif %}
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {% for k in kpi %}
+    <div class="rounded-default border border-base-200 dark:border-base-800 p-5 bg-white dark:bg-base-900">
+      <div class="text-sm text-base-500">{{ k.title }}</div>
+      <div class="text-3xl font-semibold mt-1 text-font-important-light dark:text-font-important-dark">{{ k.value }}</div>
+    </div>
+    {% endfor %}
+  </div>
+  {% if upcoming %}
+  <div class="rounded-default border border-base-200 dark:border-base-800 p-5 bg-white dark:bg-base-900">
+    <div class="font-semibold mb-3 text-font-important-light dark:text-font-important-dark">Последние уроки</div>
+    <ul class="flex flex-col gap-2">
+      {% for l in upcoming %}
+      <li><a class="text-primary-600 dark:text-primary-500" href="{% url 'admin:school_lesson_change' l.pk %}">{{ l }}</a> — {{ l.get_status_display }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+{{ block.super }}
+{% endblock %}

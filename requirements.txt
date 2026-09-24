@@ -1,0 +1,4 @@
+Django>=5.2,<6
+django-unfold>=0.91
+anthropic>=1.8
+python-dotenv>=1.0
