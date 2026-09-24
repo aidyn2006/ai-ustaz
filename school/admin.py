@@ -86,7 +86,7 @@ class LessonAdmin(ModelAdmin):
     actions_detail = ["ai_plan", "ai_quiz", "make_video"]
     actions = ["bulk_ai_plan", "bulk_make_video"]
     fieldsets = [
-        (None, {"fields": ["title", ("subject", "classroom"), ("date", "duration_min", "language"), "status", "notes"]}),
+        (None, {"fields": ["title", ("subject", "classroom"), ("date", "duration_min"), ("language", "status"), "notes"]}),
         ("Содержание урока", {"fields": ["objectives", "plan", "key_points"], "classes": ["tab"]}),
         ("Видео", {"fields": ["video_status", "video_player", "video"], "classes": ["tab"]}),
     ]
