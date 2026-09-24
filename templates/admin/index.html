@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% load i18n unfold %}
+
+{% block title %}{{ title }} | {{ site_title }}{% endblock %}
+
+{% block branding %}
+    {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+    {% if not ai_enabled %}
+        <div class="mb-6">
+            {% component "unfold/components/card.html" with icon="info" %}
+                {% component "unfold/components/text.html" %}
+                    AI работает в <b>демо-режиме</b>. Добавьте <code>ANTHROPIC_API_KEY</code> в <code>.env</code>, чтобы Claude генерировал настоящие планы, тесты и проверку ответов.
+                {% endcomponent %}
+            {% endcomponent %}
+        </div>
+    {% endif %}
+
+    {% component "unfold/components/flex.html" with class="gap-6 mb-8 flex-col lg:flex-row" %}
+        {% for k in kpi %}
+            {% component "unfold/components/card.html" with icon=k.icon %}
+                {% component "unfold/components/text.html" %}{{ k.title }}{% endcomponent %}
+                {% component "unfold/components/title.html" %}{{ k.value }}{% endcomponent %}
+            {% endcomponent %}
+        {% endfor %}
+    {% endcomponent %}
+
+    {% if upcoming %}
+        <div class="mb-8">
+            {% component "unfold/components/card.html" with title="Последние уроки" %}
+                {% component "unfold/components/table.html" with table=lessons_table %}{% endcomponent %}
+            {% endcomponent %}
+        </div>
+    {% endif %}
+
+    {% include "unfold/helpers/app_list_default.html" %}
+{% endblock %}
